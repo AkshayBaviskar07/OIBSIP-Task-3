@@ -1,10 +1,13 @@
 package com.atm.machine;
+import java.util.Scanner;
 
 public class Accounts {
     private int customerNumber;
     private int pinNumber;
-    private int currentBalance=0;
-    private int savingBalance=0;
+    private double currentBalance=0;
+    private double savingBalance=0;
+
+    Scanner input = new Scanner(System.in);
 
     public int getCustomerNumber() {
         return customerNumber;
@@ -22,7 +25,7 @@ public class Accounts {
         this.pinNumber = pinNumber;
     }
 
-    public int getCurrentBalance() {
+    public double getCurrentBalance() {
         return currentBalance;
     }
 
@@ -30,7 +33,7 @@ public class Accounts {
         this.currentBalance = currentBalance;
     }
 
-    public int getSavingBalance() {
+    public double getSavingBalance() {
         return savingBalance;
     }
 
@@ -38,4 +41,77 @@ public class Accounts {
         this.savingBalance = savingBalance;
     }
 
+    //calculating withdraw balance in current account
+    public double calcCurrentWithdraw(double amount){
+        currentBalance -= amount;
+        return currentBalance;
+    }
+
+    //calculating deposit input in current account
+    public double calcCurrentDeposit(double amount){
+        currentBalance += amount;
+        return currentBalance;
+    }
+
+    //calculating withdraw inputs in savings account
+    public double calcSavingsWithdraw(double amount){
+      savingBalance -= amount;
+      return savingBalance;
+    }
+
+    //calculating deposit inputs in savings account
+    public double calcSavingsDeposite(double amount){
+        savingBalance += amount;
+        return savingBalance;
+    }
+
+    public void getCurrentWithdrawInput(){
+        System.out.println("Current Balance: "+currentBalance);
+        System.out.println("Enter Amount: ");
+        double amount = input.nextDouble();
+
+        if((currentBalance - amount) >= 0){
+            calcCurrentWithdraw(amount);
+            System.out.println("Current Balance: "+currentBalance);
+        } else{
+            System.out.println("Not enough balance.");
+        }
+    }
+
+    public void getCurrentDepositInput(){
+        System.out.println("Enter amount: ");
+        double amount = input.nextDouble();
+
+        if((currentBalance + amount) >= 0){
+            calcCurrentDeposit(amount);
+            System.out.println("Current Balance is: "+currentBalance);
+        } else{
+            System.out.println("Please enter valid amount.");
+        }
+    }
+
+    public void getSavingWithdrawInput(){
+        System.out.println("Saving Balance: "+savingBalance);
+        System.out.println("Enter Amount: ");
+        double amount = input.nextDouble();
+
+        if((savingBalance - amount) >= 0){
+            calcSavingsWithdraw(amount);
+            System.out.println("Saving Balance: "+savingBalance);
+        } else{
+            System.out.println("Not enough balance.");
+        }
+    }
+
+    public void getSavingDepositInput(){
+        System.out.println("Enter amount: ");
+        double amount = input.nextDouble();
+
+       if((savingBalance + amount) >= 0){
+           calcSavingsDeposite(amount);
+           System.out.println("Saving balance: "+savingBalance);
+        } else{
+           System.out.println("Enter valid amount");
+        }
+    }
 }
